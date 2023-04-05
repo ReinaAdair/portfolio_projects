@@ -48,8 +48,6 @@ def decrypt_directory(directory):
 def main():
     print("Hidey ho, neighbor.")
     encrypt_directory("F:\Coding\Dev\python\encryptiontesting")
-    message = 'All your files are belong to me'
-    #print(base64.b64encode(message.encode()).decode())
 
 if __name__ == '__main__':
     main()
