@@ -1,5 +1,5 @@
 # Attentance Point Tracker
-#       Version 0.1
+#       Version 0.2
 # Written by Thomas Gordon
 
 # Loads and saves from .json file, allows updating of file through commands, and automatically
@@ -11,7 +11,7 @@ import json
 class PointTracker:
         # Adds and employee to the database
     def addEmployee(database, name):
-        empDictItem = {"name" : name, "infractions" : {}, "controlDate" : None, "isFlagged" : False}
+        empDictItem = {"name" : name, "infractions" : {}, "controlDate" : None, "totalPoints" : 0, "isFlagged" : False}
         database["employees"].append(empDictItem)
         print(f'Added: {name} to current database.')
 
@@ -29,7 +29,6 @@ class PointTracker:
                 else:
                     continue
             counter += 1
-
         print(f'Removed: {name} from current database.')
 
 
@@ -59,7 +58,6 @@ class PointTracker:
                 print(f'These are the infractions for {name}\n{eminfr}')
                 userChoice = input("Which would date you like to remove? ")
 
-                counter2 = 0
                 for infr in emp['infractions']:
                     if infr == userChoice:
                         confirmation = input(f'Are you sure you want to remove {infr} from the current database? y/n ')
@@ -164,9 +162,6 @@ class PointTracker:
 
             database["employees"]
 
-            #print("Infractions after prune: ", empInfr)
-            #print('\n')
-
 
 
         # Loops through the JSON variable and updates total point count and flagged status for each employee
@@ -201,7 +196,7 @@ class PointTracker:
 
         # First function that runs, returns JSON file to a variable
     def loadJSON():
-        f = open("python\Point Tracker\proto.json")
+        f = open("Employees.json")
         data = json.load(f)
         f.close()
         return(data)
@@ -209,7 +204,7 @@ class PointTracker:
 
 
     def saveJSON(database):
-        with open("python\Point Tracker\protosave.json", 'w') as out:
+        with open("Employees.json", 'w') as out:
             json.dump(database, out)
 
 
@@ -228,18 +223,18 @@ def main():
         5 - view employee   6 - view flagged
         9 - help            10 - force exit
     """
-    helpList = """exit - saves changes and exits the program
-    add employee - adds an employee to the database
-    remove employee - removes an employee from the database
-    add infraction - adds an infraction to a specified employee
-    remove infraction - removes an infraction from a specified employee
-    view employee - returns employee information
-    view flagged - returns the list of flagged employees
-    help - you are here
-    force exit - exits the program without saving changes"""
+    helpList = """0: exit - saves changes and exits the program
+    1: add employee - adds an employee to the database
+    2: remove employee - removes an employee from the database
+    3: add infraction - adds an infraction to a specified employee
+    4: remove infraction - removes an infraction from a specified employee
+    5: view employee - returns employee information
+    6: view flagged - returns the list of flagged employees
+    9: help - you are here
+    10: force exit - exits the program without saving changes"""
 
     print(commandList)
-    
+
     def inputHandler(userInput):
         if userInput == "exit" or userInput == "0": # SAVE AND EXIT
             print("Saving changes...")
@@ -259,12 +254,14 @@ def main():
             database = db
             empName = input("Which employee would you like to add an infraction to? ")
             PT.addInfraction(database, empName)
+            flaggedEmployees = PT.updateTotalPoints(db)
 
         elif userInput == "remove infraction" or userInput == "4": # REMOVE INFRACTION
             database = db
             empName = input("Which employee would you like to remove an infraction from? ")
             PT.removeInfraction(database, empName)
-    
+            flaggedEmployees = PT.updateTotalPoints(db)
+
         elif userInput == "view employee" or userInput == "5": # VIEW EMPLOYEE
             database = db
             empName = input("Which employee would you like to view? ")
@@ -286,6 +283,7 @@ def main():
 
     userInput = ""
     while userInput != "exit" and userInput != "no save" and userInput != "0":
+        print(commandList)
         userInput = input("\nPlease select a command... ").lower()
         inputHandler(userInput)
 
