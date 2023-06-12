@@ -7,7 +7,7 @@ Guessing Suits:
 
     Status: Finished, albeit sloppy.
     
-PointTracker2:
+Tracker:
     A system for keeping track of employee points for an attendance system. Adds up the amount
     of points an employee has, and ensures those points are still valid in conjunction with
     the companies attendance policy.
