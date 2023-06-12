@@ -1,5 +1,5 @@
 # Attentance Point Tracker
-#       Version 0.0.1
+#       Version 0.1
 # Written by Thomas Gordon
 
 # Loads and saves from .json file, allows updating of file through commands, and automatically
