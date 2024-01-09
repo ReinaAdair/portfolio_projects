@@ -12,7 +12,7 @@ Tracker:
     of points an employee has, and ensures those points are still valid in conjunction with
     the companies attendance policy.
 
-    Status: In development
+    Status: Borked for some reason, currently being completely rewritten in C++
 
 Deck:
     A simple python class that allows for user defined playing card decks. Allows drawing
