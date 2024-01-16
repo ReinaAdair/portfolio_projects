@@ -3,7 +3,7 @@
 # Written by Thomas Gordon
 
 # Loads and saves from .json file, allows updating of file through commands, and automatically
-# removes any points that have expired in compliance with DS Smith policy
+# removes any points that have expired in compliance policy
 
 from datetime import date, datetime, timedelta
 import json
